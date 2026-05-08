@@ -1,0 +1,6 @@
+# Archivo de dependencias para LibreriaCargaTermica
+# Actualmente, esta librería está desarrollada puramente en Python estándar (built-ins)
+# y no requiere la instalación de paquetes de terceros (como numpy, pandas, etc.).
+# El módulo 'math' utilizado en infiltracion.py ya viene incluido con Python.
+
+# Si en el futuro se añaden dependencias externas, deberán listarse aquí.

@@ -1,6 +1,6 @@
 class CalculadoraTransmisionTermica:
     """
-    Modulo de calculo de carga termica por transmision a traves de la envolvente del camara frigorifica, considerando paredes, techo y piso.
+    Modulo 1: Calculo de carga termica por transmision a traves de la envolvente del camara frigorifica, considerando paredes, techo y piso.
     Basado en estandares industriales y coeficientes empiricos.
     """
     
