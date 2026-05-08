@@ -2,9 +2,9 @@ import math
 
 class CalculadoraInfiltracion:
     """
-    Módulo de cálculo de carga térmica por infiltración de aire.
+    Modulo 2: Calculo de carga termica por infiltracion de aire.
     Calcula el calor sensible y latente aportado por el aire exterior considerando
-    las renovaciones de aire (por volumen) o por apertura directa de puertas.
+    las renovaciones de aire (por volumen) o por medio de la apertura directa de puertas.
     """
     
     # ---------------- CONSTANTES DE CLASE ---------------- #
