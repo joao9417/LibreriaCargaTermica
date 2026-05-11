@@ -40,7 +40,13 @@ Al ser una librería de dominio independiente que utiliza únicamente librerías
 from LibreriaCargaTermica.transmision import CalculadoraTransmisionTermica
 
 # Instanciar con dimensiones (L, A, H en metros) y temperaturas (°C)
-calc_transmision = CalculadoraTransmisionTermica(10.0, 8.0, 3.5, -20.0, 35.0)
+calc_transmision = CalculadoraTransmisionTermica(
+    largo_m=10.0,
+    ancho_m=8.0,
+    alto_m=3.5,
+    temp_camara_c=-20.0,
+    temp_exterior_c=35.0
+)
 
 # Calcular pasando los espesores de los paneles (mm) y horas de control
 resultados_trans = calc_transmision.calcular_carga_total(
@@ -50,7 +56,8 @@ resultados_trans = calc_transmision.calcular_carga_total(
     tiempo_control=16.0
 )
 
-print(f"Carga por Transmisión: {resultados_trans['TOTAL']} BTU/día")
+for superficie, carga in resultados_trans.items():
+    print(f"{superficie.capitalize()}: {carga} BTU/dia")
 ```
 
 ### 2. Cálculo por Infiltración de Aire
