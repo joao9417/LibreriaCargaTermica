@@ -64,17 +64,18 @@ class CalculadoraProducto:
         # Solo hay enfriamiento si la temperatura de entrada es mayor a la de salida
         if t_in_f > t_out_f:
             
-            # 1. ETAPA DE REFRIGERACIÓN
+            # 1. ETAPA DE REFRIGERACIÓN (Sensible arriba del punto de congelación)
             if t_in_f > t_cong_f and t_out_f > t_cong_f:
                 delta_refrig = t_in_f - t_out_f
             elif t_in_f > t_cong_f:
                 delta_refrig = t_in_f - t_cong_f
                 
-            # 2. ETAPA DE CONGELACIÓN (Flag = 1 si cruza la línea de congelación)
+            # 2. ETAPA DE CONGELACIÓN (Latente: cambio de fase)
+            # El flag indica que el producto cruzó la barrera de congelación
             if t_in_f > t_cong_f and t_out_f < t_cong_f:
                 flag_congelacion = 1.0
                 
-            # 3. ETAPA DE SUBENFRIAMIENTO
+            # 3. ETAPA DE SUBENFRIAMIENTO (Sensible debajo del punto de congelación)
             if t_in_f < t_cong_f and t_out_f < t_cong_f:
                 delta_subenfriamiento = abs(t_in_f - t_out_f)
             elif t_out_f < t_cong_f:

@@ -4,8 +4,15 @@ class CalculadoraTransmisionTermica:
     Basado en estandares industriales y coeficientes empiricos.
     """
     
+    # --- CONSTANTES DE DISEÑO ---
+    # Factores K (Coeficiente Global de Transferencia de Calor) según espesor en mm
+    # Valores típicos para paneles de poliuretano inyectado (BTU/h·ft²·°F)
     FACTORES_K_PARED_TECHO = {0: 5.04, 50: 1.92, 80: 1.28, 100: 0.96, 125: 0.77, 150: 0.64}
+    
+    # El piso suele tener un factor K ligeramente diferente por su construcción/aislamiento base
     FACTORES_K_PISO = {0: 5.04, 50: 1.32, 80: 0.98, 100: 0.78, 125: 0.65, 150: 0.55}
+    
+    # Conversión de unidades
     M2_A_FT2 = 10.7639
     
     
@@ -27,6 +34,8 @@ class CalculadoraTransmisionTermica:
         Parametro unidad: 'm2' para metros cuadrados, 'ft2' para pies cuadrados.
         """
         
+        # Se añade un margen de 0.2m (20cm) a cada dimensión para considerar
+        # el espesor de los paneles y solapes en la estructura.
         areas_m2 = {
             'techo': (self.largo_m + 0.2) * (self.ancho_m + 0.2),
             'piso': (self.largo_m + 0.2) * (self.ancho_m + 0.2),
@@ -51,7 +60,8 @@ class CalculadoraTransmisionTermica:
         Parametro unidad: 'C' para Celsius, 'F' para Fahrenheit, 'K' para Kelvin.
         """
         
-        # Regla empirica para determinar la temperatura del suelo según la temperatura exterior
+        # Regla empírica para determinar la temperatura del suelo (suponiendo que no está aislado al 100%
+        # o está en contacto directo con terreno a profundidad estándar).
         if self.temp_exterior_c > 30:
             temp_suelo = 18
         elif self.temp_exterior_c > 23:
@@ -61,14 +71,15 @@ class CalculadoraTransmisionTermica:
         else:
             temp_suelo = 12
             
-        # Temperaturas exteriores ajustadas para cada superficie considerando asoleamiento y contacto con el suelo
+        # Ajuste de temperatura exterior por efecto de radiación solar (asoleamiento)
+        # Se suman grados extras a las caras más expuestas según su orientación.
         temp_ext_superficies = {
             'piso': temp_suelo,
-            'techo': self.temp_exterior_c + 5,
+            'techo': self.temp_exterior_c + 5,      # Máxima exposición cenital
             'pared_norte': self.temp_exterior_c,
-            'pared_este': self.temp_exterior_c + 3,
+            'pared_este': self.temp_exterior_c + 3, # Sol de la mañana
             'pared_sur': self.temp_exterior_c + 2,
-            'pared_oeste': self.temp_exterior_c + 3
+            'pared_oeste': self.temp_exterior_c + 3 # Sol de la tarde
         }
         
         # Calculamos ΔT base en Celsius: (T_ext - T_camara)
