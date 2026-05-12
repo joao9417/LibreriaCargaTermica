@@ -1,21 +1,24 @@
 import math
 
-class CalculadoraInfiltracion:
+class CalculadoraInfiltracionTermica:
     """
     Modulo 2: Calculo de carga termica por infiltracion de aire.
     Calcula el calor sensible y latente aportado por el aire exterior considerando
     las renovaciones de aire (por volumen) o por medio de la apertura directa de puertas.
     """
     
-    # ---------------- CONSTANTES DE CLASE ---------------- #
-    
+    # --- MATRICES DE FACTORES PSICROMÉTRICOS ---
+    # Columnas: Temperatura Exterior (°C) [37.78, 35.00, 32.22, 29.44]
     TEMP_EXTERIOR_COLS = [37.78, 35.00, 32.22, 29.44]
 
+    # Filas: Temperatura de la Cámara (°C)
     TEMP_CAMARA_ROWS = [
         18.33, 15.56, 12.78, 10.00, 7.22, 4.44, 1.67, -1.11, 
         -3.89, -6.67, -9.44, -12.22, -15.00, -17.78, -20.56, -23.33
     ]
 
+    # Matriz Factor Aire (BTU / ft³): Energía aportada por cada pie cúbico de aire infiltrado
+    # Cruce de TEMP_EXTERIOR_COLS y TEMP_CAMARA_ROWS
     MATRIZ_FACTOR_AIRE = [
         [1.95, 1.54, 1.17, 0.85], [2.15, 1.74, 1.37, 1.03], [2.44, 2.01, 1.66, 1.34],
         [2.65, 2.22, 1.87, 1.54], [2.85, 2.42, 2.06, 1.73], [3.06, 2.62, 2.26, 1.92],
@@ -25,6 +28,7 @@ class CalculadoraInfiltracion:
         [4.74, 4.33, 3.85, 3.49]
     ]
 
+    # Tabla de Renovaciones por Volumen (según estándar ASHRAE/Industrial)
     TABLA_VOLUMEN_FT3 = [
         200, 250, 300, 400, 500, 600, 700, 800, 900, 1000,
         1500, 2000, 3000, 4000, 5000, 6000, 15000, 20000,
@@ -37,6 +41,7 @@ class CalculadoraInfiltracion:
         3, 2.7, 2.3, 2, 1.6, 1.4, 1.13, 0.97
     ]
 
+    # Factores de multiplicador según el rigor de la operación
     OPCIONES_FACTOR_USO = {
         'normal': 1.0,
         'trabajo_pesado': 2.0,
@@ -84,6 +89,7 @@ class CalculadoraInfiltracion:
             return 0.0 # Si no hay diferencia térmica o está invertida, no hay flujo convectivo
             
         # Fórmula empírica de Bernoulli adaptada: 4.88 * √(H) * √(ΔT)
+        # Calcula el flujo volumétrico por convección natural en la apertura.
         velocidad_ft_min = 4.88 * math.sqrt(alto_puerta_ft) * math.sqrt(delta_t_f)
         return round(velocidad_ft_min, 2)
 
