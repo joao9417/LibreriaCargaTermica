@@ -27,11 +27,36 @@ Este motor de cálculo está diseñado basándose en prácticas empíricas valid
 * Determinación automática de etapas termodinámicas según las temperaturas de entrada, salida y punto de congelación.
 * Soporte para calor de respiración en productos que lo requieran (frutas, verduras).
 
+### 🗄️ Módulo 4: Catálogo y Base de Datos (Nuevo)
+* Gestión automatizada de propiedades termodinámicas mediante SQLite.
+* Carga masiva de productos desde archivos CSV (`productos.csv`).
+* Métodos de búsqueda optimizados para integrar con el motor de cálculo.
+* Arquitectura preparada para migración directa a frameworks como Django.
+
 ## Instalación
 
 Al ser una librería de dominio independiente que utiliza únicamente librerías estándar de Python, no requiere instalación forzosa mediante `pip`. Simplemente clona este repositorio o copia la carpeta `LibreriaCargaTermica` dentro de la estructura principal de tu proyecto. 
 
 *Nota: Se incluye un archivo `requirements.txt` y se puede crear un entorno virtual para mantener las buenas prácticas, aunque actualmente no existen dependencias de terceros.*
+
+## Gestión de la Base de Datos
+
+La librería incluye un sistema para gestionar el catálogo de productos de forma persistente sin necesidad de configurar servidores externos.
+
+### Inicialización de la Base de Datos
+Para generar la base de datos local y cargar los productos desde el CSV incluido:
+
+```python
+from LibreriaCargaTermica.catalogo import CatalogoProductosDB
+
+# Instanciar (crea el archivo .db automáticamente si no existe)
+db = CatalogoProductosDB()
+
+# Poblar la base de datos desde el archivo CSV
+db.poblar_desde_csv("productos.csv")
+
+print("Base de datos lista para usar.")
+```
 
 ## Ejemplos de Uso
 
@@ -76,24 +101,28 @@ resultados_inf = calc_infiltracion.calcular_carga_por_volumen(
 print(f"Carga por Infiltración (Volumen): {resultados_inf['TOTAL_INFILTRACION']} BTU/día")
 ```
 
-### 3. Cálculo de Carga del Producto
+### 3. Integración con el Catálogo de Productos
 ```python
+from LibreriaCargaTermica.catalogo import CatalogoProductosDB
 from LibreriaCargaTermica.producto import CalculadoraProducto
 
-# Instanciar con las propiedades térmicas y operativas del producto
+# 1. Buscar producto en el catálogo
+db = CatalogoProductosDB()
+datos_papa = db.buscar_producto("Papa")
+
+# 2. Instanciar calculadora con datos del catálogo
 papa = CalculadoraProducto(
-    nombre="Papa", 
+    nombre=datos_papa['nombre'], 
     rotacion_kg=18144, 
-    temp_entrada_c=-13.0, 
+    temp_entrada_c=10.0, 
     temp_salida_c=-18.0, 
-    temp_congelacion_c=-0.6,
-    cp_arriba_cong=0.88,
-    cp_debajo_cong=0.5,
-    calor_latente=113.0,
+    temp_congelacion_c=(datos_papa['temp_congelacion_f'] - 32) * 5/9, # Conversión a °C si es necesario
+    cp_arriba_cong=datos_papa['cp_arriba'],
+    cp_debajo_cong=datos_papa['cp_debajo'],
+    calor_latente=datos_papa['calor_latente'],
     factor_carga=1.0
 )
 
 resultados_prod = papa.calcular_carga_producto()
-
 print(f"Carga del Producto ({resultados_prod['producto']}): {resultados_prod['TOTAL_PRODUCTO']} BTU/día")
 ```
