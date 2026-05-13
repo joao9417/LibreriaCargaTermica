@@ -1,0 +1,173 @@
+CATEGORIA;PRODUCTS;Pto fusión [°F];Cp sobre pto cong. [Btu/lb°F];Cp debajo pto cong. [Btu/lb°F];Latente [Btu/lb];0;5,00 ;10;15;20
+vegetales;Acelga, col;30,6;0,96;0,44;130;1985;3970,00 ;5955,00 ;7940,00 ;9925
+vegetales;Ajo;30,6;0,76;0,52;84;3176;5508,38 ;7840,75 ;10173,13 ;12505,5
+vegetales;Alcachofa;29,8;0,93;0,48;122;5359,5;11463,38 ;17567,25 ;23671,13 ;29775
+vegetales;Apio;31,1;0,97;0,42136;136;1588;4664,75 ;7741,50 ;10818,25 ;13895
+vegetales;Apio nabo;30,4;0,93;0,45;126;0;0;0;0;0
+vegetales;Arracacha;30,4;0,89;0,48;114;0;0;0;0;0
+vegetales;Berenjena;30,6;0,96;0,44;132;9528;9528;9528;9528;9528
+vegetales;Berro;31,5;0,97;0,4;137;5756,5;5756,5;43670;43670;43670
+vegetales;Brócoli;30,9;0,96;0,43;130;4764;26996,00 ;49228,00 ;71460;71460,00 
+vegetales;Calabacín;31,1;0,97;0,42;135;0;0;0;0;0
+vegetales;Calabaza;30,6;0,95;0,43;132;0;0;0;0;0
+vegetales;Cebolla;30,4;0,94;0,45;129;1985;3970,00 ;5955,00 ;7940,00 ;9925
+vegetales;Champiñón (setas);30,4;0,95;0,44;132;9925;20445,50 ;30966,00 ;41486,50 ;52007
+vegetales;Col Bruselas ;30,6;0,93;0,46;123;6352;14391,25 ;22430,50 ;30469,75 ;38509
+vegetales;Col rizado;31,1;0,91;0,44;121;2699,6;5994,70 ;9289,80 ;12584,90 ;15880
+vegetales;Coliflor;30,6;0,96;0,44;132;0;0;0;0;0
+vegetales;Colinabo;30;0,94;0,46;129;0;0;0;0;0
+vegetales;Colirábano;30,2;0,96;0,45;131;2183,5;3970,00 ;5756,50 ;7543,00 ;9329,5
+vegetales;Endivia;31,8;0,97;0,4;135;0;0;0;0;0
+vegetales;Esparragos;30,9;0,96;0,43;133;13101;19254,50 ;25408,00 ;31561,50 ;37715
+vegetales;Espinaca;31,5;0,96;0,42;132;6749;20743,25 ;34737,50 ;48731,75 ;62726
+vegetales;Frijoles;30,7;0,95;0,44;130;0;0;0;0;0
+vegetales;Gengibre;;0,9;0,46;117;0;0;0;0;0
+vegetales;Guisante;30,9;0,9;0,47;113;8535,5;19601,88 ;30668,25 ;41734,63 ;52801
+vegetales;Lechuga;31,6;0,98;0,39;138;0;0;0;0;0
+vegetales;Maiz (dulce, amarillo);30,9;0,86;0,47;109;11116;25209,50 ;39303,00 ;53396,50 ;67490
+vegetales;Nabo;30;0,96;0,45;132;1865,9;2689,68 ;3513,45 ;4337,23 ;5161
+vegetales;Ñame;;0,83;0,49;100;0;0;0;0;0
+vegetales;Papa;30,9;0,88;0,46;113;2779;4565,50 ;6352,00 ;8138,50 ;9925
+vegetales;Pepino;31,1;0,98;0,41;138;0;0;0;0;0
+vegetales;Perejil;30;0,94;0,46;126;0;0;0;0;0
+vegetales;Pimienta dulce,verde;30,7;0,96;0,43;132;0;0;0;0;0
+vegetales;Puerro;30,7;0,9;0,46;119;4367;14391,25 ;24415,50 ;34439,75 ;44464
+vegetales;Quimbombó,angu;28,8;0,95;0,49;129;0;0;0;0;0
+vegetales;Rábano;30,7;0,97;0,42;136;2183,5;5309,88 ;8436,25 ;11562,63 ;14689
+vegetales;Rábano picante;28,8;0,88;0,51;113;0;0;0;0;0
+vegetales;Remolacha;30;0,93;0,46;126;1588;5558,00 ;9528,00 ;13498,00 ;17468
+vegetales;Repollo;30,4;0,96;0,44;132;0;0;0;0;0
+vegetales;Ruibarbo;30,4;0,97;0,44;135;0;0;0;0;0
+vegetales;Salsifíe;30;0,87;0,49;110;0;0;0;0;0
+vegetales;Tomate maduro;31,1;0,97;0,43;135;3374,5;3374,5;3374,5;3374,5;8337
+vegetales;Tomate verde;30,9;0,96;0,42;134;5955;5955;5955;5955;8932,5
+vegetales;Zanahoria;29,5;0,94;0,48;126;4208,2;9607,40 ;15006,60 ;20405,80 ;25805
+frutas;Aceitunas;29,5;0,9;0,49;115;8609;8609;8609;8609;8609,00 
+frutas;Aguacate;31,5;0,88;0,47;107;34581;34581;34581;34581;34581,00 
+frutas;Albaricoque;30;0,92;0,47;124;1261;1261;1982;1982;1982
+frutas;Arándano rojo;30,4;0,93;0,46;124;1008;1008;1008;1008;1008
+frutas;Arándanos azules;29,1;0,91;0,49;122;2702;2702;2702;2702;2702
+frutas;Banano;30,6;0,85;0,48;107;9726;9726;9726;9726;9726,00 
+frutas;Caqui;28;0,78;0,55;92;2197;2197;2197;2197;2197
+frutas;Casaba, Ahuyama;30;0,95;0,45;132;0;0;0;0;0
+frutas;Cerezas;28,9;0,92;0,49;124;1189;3098;3098;3098;3098
+frutas;Ciruela;30,6;0,91;0,45;123;648;1982;1982;1982;1982
+frutas;Ciruela pasa seca;;0,61;0,84;46;0;0;0;0;0
+frutas;Dátil;3,7;0,55;0,55;32;0;0;0;0;0
+frutas;Durazno;30,4;0,92;0,45;124;0;0;0;0;0
+frutas;Frambuesa;30,9;0,95;0,46;124;5512;8501;8501;8501;8501
+frutas;Fresa;30,6;0,96;0,44;132;3890;7313;7313;7313;7313
+frutas;Granada;26,6;0,88;0,55;116;0;0;0;0;0
+frutas;Grosellas;30;0,94;0,47;126;1909;2990;2990;2990;2990
+frutas;Higos, brevas frescas;27,7;0,88;0,54;113;2918;2918;2918;2918;2918
+frutas;Higos, brevas secos;;0,6;0,98;41;0;0;0;0;0
+frutas;Lima;29,1;0,94;0,48;127;1261;1261;1261;1261;1261
+frutas;Limon;29,5;0,94;0,48;126;3494;3494;3494;3494;3494,00 
+frutas;Mandarina;30;0,93;0,46;126;0;0;0;0;0
+frutas;Mango;30,4;0,89;0,47;117;2306;2306;2306;2306;2306,00 
+frutas;Manzanas frescas;30;0,91;0,47;120;1369;1369;9005;9005;9005
+frutas;Manzanas Secas;N/A;0,61;0,68;46;0;0;0;0;0
+frutas;Melocotón;30,4;0,93;0,45;126;1405;2017;2017;2017;2017
+frutas;Melocotón seco;N/A;0,61;0,83;46;0;0;0;0;0
+frutas;Melón;29,8;0,94;0,46;129;2197;2197;2197;2197;2197
+frutas;Membrillo;28,4;0,91;0,51;120;0;0;0;0;0
+frutas;Moras;30,6;0,93;0,46;123;5043;10086;10086;10086;10086
+frutas;Naranja;30,6;0,91;0,47;118;1008;1008;1008;1008;1008
+frutas;Pera;29,1;0,91;0,49;120;1513;1513;1513;1513;1513
+frutas;Piña;30,2;0,92;0,46;124;1225;1225;1225;1225;1225,00 
+frutas;Pomelo, toronja;30;0,95;0,45;131;2810;2810;2810;2810;2810,00 
+frutas;Sandía;31,3;0,95;0,42;132;1657;1657;1657;1657;1657
+frutas;Uva americana;29,1;0,89;0,49;117;612;1189;1189;1189;1189
+frutas;Uva Europea;28,2;0,88;0,52;116;505;1296;1296;1296;1296
+frutas;Uva pasa;FALTA;0,49;0,49;22;0;0;0;0;0
+frutas;Uva pasa Blanca;30,2;0,92;0,47;120;0;0;0;0;0
+frutas;Uva pasa negra;30,2;0,89;0,47;118;0;0;0;0;0
+pescados y mariscos;Almejas;28;0,9;0,51;117;0;0;0;0;0
+pescados y mariscos;Atún;28;0,82;0,52;98;0;0;0;0;0
+pescados y mariscos;Bacalao;28;0,9;0,51;117;0;0;0;0;0
+pescados y mariscos;Camarón;28;0,87;0,52;109;0;0;0;0;0
+pescados y mariscos;Langosta;28;0,87;0,51;110;0;0;0;0;0
+pescados y mariscos;Ostras;28;0,91;0,51;122;0;0;0;0;0
+pescados y mariscos;Pescado: Arenque;28;0,78;0,54;86;0;0;0;0;0
+pescados y mariscos;Pescado: Caballa;28;80;0,53;91;0;0;0;0;0
+pescados y mariscos;Pescado: Fletan;28;0,89;0,52;112;0;0;0;0;0
+pescados y mariscos;Pescado: Merlan;28;0,9;0,51;115;0;0;0;0;0
+pescados y mariscos;Pescado:Eglefino, abadejo;28;0,9;0,51;115;0;0;0;0;0
+pescados y mariscos;Salmón;28;0,88;0,52;110;0;0;0;0;0
+pescados y mariscos;Vieira;28;0,89;0,51;113;0;0;0;0;0
+res;Res canal;28;0,77;0,55;82;0;0;0;0;0
+res;Res costilla;FALTA;0,75;0,55;78;0;0;0;0;0
+res;Res lomo corto, bistek;FALTA;0,83;0,51;100;0;0;0;0;0
+res;Res magra;28,9;0,78;0,54;83;0;0;0;0;0
+res;Res solomo;28,9;0,84;0,5;103;0;0;0;0;0
+res;Res, higado;28,9;0,83;0,52;99;0;0;0;0;0
+res;Res, pecho, falda;FALTA;0,76;0,56;79;0;0;0;0;0
+res;Res, redondo;FALTA;0,81;0,52;93;0;0;0;0;0
+res;Res, Solomillo, filete;FALTA;0,82;0,51;98;0;0;0;0;0
+res;res, ternera;FALTA;0,87;0,5;5;0;0;0;0;0
+cerdo;Cedo, tocino, tocineta;FALTA;0,64;0,64;45;0;0;0;0;0
+cerdo;Cerdo, canal;FALTA;0,74;0,74;71;0;0;0;0;0
+cerdo;Cerdo, grasa trasera;FALTA;0,52;0,71;11;0;0;0;0;0
+cerdo;Cerdo, jamón, curado, magro;FALTA;0,83;0,53;98;0;0;0;0;0
+cerdo;Cerdo, Paleta;28;0,86;0,53;104;0;0;0;0;0
+cerdo;Cerdo, panza;FALTA;0,67;0,8;53;0;0;0;0;0
+salchichas;Salchicha ahumada;FALTA;0,67;0,59;56;0;0;0;0;0
+salchichas;Salchicha Braunschweiger;FALTA;0,72;0,57;69;0;0;0;0;0
+salchichas;Salchicha de cerdo;FALTA;0,7;0,58;64;0;0;0;0;0
+salchichas;Salchicha Frankfurter;28,9;0,75;0,55;77;0;0;0;0;0
+salchichas;Salchicha italiana (chorizo);FALTA;0,74;0,57;74;0;0;0;0;0
+salchichas;Salchicha polaca;FALTA;0,75;0,56;77;0;0;0;0;0
+aves;Pato;FALTA;0,73;0,59;70;0;0;0;0;0
+aves;Pavo;FALTA;0,84;0,54;101;0;0;0;0;0
+aves;Pollo;27;0,79;0,42;95;0;0;0;0;0
+huevos;Huevo Clara;30,9;0,93;0,43;126;0;0;0;0;0
+huevos;Huevo deshidratado;FALTA;0,55;0,5;21;0;0;0;0;0
+huevos;Huevo entero;30,9;0,87;0,47;108;0;0;0;0;0
+huevos;Huevo entero deshidratado;FALTA;0,49;0,48;4;0;0;0;0;0
+huevos;Huevo llema;30,9;0,73;0,54;70;0;0;0;0;0
+cordero;Cordero cortes magros;28,6;0,86;0,51;105;0;0;0;0;0
+cordero;Cordero, pierna;FALTA;0,86;0,51;107;0;0;0;0;0
+productos diarios;Mantequilla;FALTA;0,57;0,63;26;0;0;0;0;0
+lacteos;Crema de leche;28;0,86;0,53;106;0;0;0;0;0
+lacteos;Leche condensada;5;0,56;0,56;39;0;0;0;0;0
+lacteos;Leche descremada;FALTA;0,94;0,43;130;0;0;0;0;0
+lacteos;Leche entera;30,9;0,93;0,43;126;0;0;0;0;0
+lacteos;Leche evaporada;29,5;0,85;0,5;106;0;0;0;0;0
+lacteos;Leche, suero o crema agria;FALTA;0,4;0,4;5;0;0;0;0;0
+lacteos;Queso americano procesado;19,6;0,67;0,66;56;0;0;0;0;0
+lacteos;Queso camember;FALTA;0,74;0,8;74;0;0;0;0;0
+lacteos;Queso cheddar;8,8;0,66;0,73;53;0;0;0;0;0
+lacteos;Queso cottage, descremado;29,8;0,89;0,48;114;0;0;0;0;0
+lacteos;Queso crema;FALTA;0,75;0,7;77;0;0;0;0;0
+lacteos;Queso gouda;FALTA;0,69;0,66;59;0;0;0;0;0
+lacteos;Queso limburger;18,7;0,72;0,67;70;0;0;0;0;0
+lacteos;Queso mozzarella;FALTA;0,75;0,59;78;0;0;0;0;0
+lacteos;Queso parmesano;FALTA;0,62;0,7;42;0;0;0;0;0
+lacteos;Queso roquefort;2,7;0,67;0,8;57;0;0;0;0;0
+lacteos;Queso suizo;14;0,66;0,69;53;0;0;0;0;0
+helados;Helado de chocolate;21,9;0,74;0,66;80;0;0;0;0;0
+helados;Helado de fresa;21,9;0,76;0,65;86;0;0;0;0;0
+helados;Helado de vainilla;21,9;0,77;0,65;88;0;0;0;0;0
+frutos secos;Almendras;FALTA;0,53;0,53;6;0;0;0;0;0
+frutos secos;Avellanas;FALTA;0,5;0,5;8;0;0;0;0;0
+frutos secos;Maní;FALTA;0,53;0,53;9;0;0;0;0;0
+frutos secos;Maní tostado salado;FALTA;0,5;0,5;2;0;0;0;0;0
+dulces;Caramelos;FALTA;0,45;0,45;15;0;0;0;0;0
+dulces;Chocolates (con leche);FALTA;0,44;0,44;2;0;0;0;0;0
+dulces;Marsmallows;FALTA;0,48;0,48;24;0;0;0;0;0
+jugos y bebidas;Bebida de achocolatada;FALTA;0,9;0,44;120;0;0;0;0;0
+jugos y bebidas;Club Soda;FALTA;1;0,39;144;0;0;0;0;0
+jugos y bebidas;Cola;FALTA;0,93;0,42;129;0;0;0;0;0
+jugos y bebidas;Ginger ale;FALTA;0,94;0,41;131;0;0;0;0;0
+jugos y bebidas;Jugo de arándano;FALTA;0,89;0,44;119;0;0;0;0;0
+jugos y bebidas;Jugo de ciruela;FALTA;0,89;0,45;117;0;0;0;0;0
+jugos y bebidas;Jugo de limón;FALTA;0,95;0,41;133;0;0;0;0;0
+jugos y bebidas;Jugo de manzana, sin azucar;FALTA;0,92;0,43;126;0;0;0;0;0
+jugos y bebidas;Jugo de naranja;31,3;0,93;0,42;128;0;0;0;0;0
+jugos y bebidas;Jugo de piña, sin azucar;FALTA;0,91;0,43;123;0;0;0;0;0
+jugos y bebidas;Jugo de pomelo, con azucar;FALTA;0,92;0,43;126;0;0;0;0;0
+jugos y bebidas;Jugo de tomate;FALTA;0,96;0,41;135;0;0;0;0;0
+jugos y bebidas;Jugo de uva, sin azucar;FALTA;0,9;0,43;121;0;0;0;0;0
+jugos y bebidas;Limonada;FALTA;0,93;0,42;129;0;0;0;0;0
+miscelaneos;Miel;FALTA;0,48;0,48;25;0;0;0;0;0
+miscelaneos;Miel de maple;FALTA;0,58;0,58;46;0;0;0;0;0

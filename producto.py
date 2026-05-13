@@ -1,28 +1,34 @@
 class CalculadoraProducto:
     """
     Modulo 3: Calculo de carga termica del producto.
-    Calcula el calor sensible (enfriamiento y subenfriamiento), calor latente 
-    (congelacion) y calor de respiración.
     """
     
-    def __init__(self, nombre: str, rotacion_kg: float, temp_entrada_c: float, 
-                 temp_salida_c: float, temp_congelacion_c: float = None, 
-                 cp_arriba_cong: float = 0.0, cp_debajo_cong: float = 0.0, 
-                 calor_latente: float = 0.0, almacenamiento: float = 0.0, 
-                 calor_respiracion: float = 0.0, factor_carga: float = 1.0):
+    def __init__(self, 
+                # Datos operativos de entrada:
+                nombre: str,
+                rotacion_kg: float,
+                temp_entrada_c: float,
+                temp_salida_c: float,
+                almacenamiento: float = 0.0,
+                factor_carga: float = 1.0,
+
+                # Datos de catalogo:
+                temp_congelacion_f: float = None,
+                cp_arriba_cong: float = 0.0,
+                cp_debajo_cong: float = 0.0,
+                calor_latente: float = 0.0,
+                calor_respiracion: float = 0.0):
         
-        # 1. Identificación y Operación
+        # Guardamos en memoria del objeto los datos
         self.nombre = nombre
         self.rotacion_kg = rotacion_kg
         self.almacenamiento = almacenamiento
         self.factor_carga = factor_carga
         
-        # 2. Temperaturas (°C)
         self.temp_entrada_c = temp_entrada_c
         self.temp_salida_c = temp_salida_c
-        self.temp_congelacion_c = temp_congelacion_c
-        
-        # 3. Propiedades Térmicas
+
+        self.temp_congelacion_f = temp_congelacion_f
         self.cp_arriba_cong = cp_arriba_cong
         self.cp_debajo_cong = cp_debajo_cong
         self.calor_latente = calor_latente
@@ -52,10 +58,10 @@ class CalculadoraProducto:
         t_out_f = self._c_to_f(self.temp_salida_c)
         
         # Manejo del caso sin punto de congelación definido (asume 32°F / 0°C)
-        if self.temp_congelacion_c is None:
+        if self.temp_congelacion_f is None:
             t_cong_f = 32.0
         else:
-            t_cong_f = self._c_to_f(self.temp_congelacion_c)
+            t_cong_f = self.temp_congelacion_f
             
         delta_refrig = 0.0
         flag_congelacion = 0.0
