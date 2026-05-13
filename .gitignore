@@ -7,3 +7,6 @@ __pycache__/
 venv/
 env/
 .venv/
+
+# Base de datos SQLite
+*.db
