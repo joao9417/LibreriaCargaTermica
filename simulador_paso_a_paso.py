@@ -1,96 +1,129 @@
 from transmision import CalculadoraTransmisionTermica
 from infiltracion import CalculadoraInfiltracionTermica
+from producto import CalculadoraProducto
+from catalogo import CatalogoProductosDB
+from suplementarias import CalculadoraCargaPersonas, CalculadoraIluminacion
 
-# Parametros Modulo 1: Transmision Termica
-L, A, H = 4.0, 3.0, 2.5
+# ==================================================
+# 1. PARÁMETROS MAESTROS (INPUTS DEL USUARIO)
+# ==================================================
+# Dimensiones y Temperaturas
+L, A, H = 17.87, 19.57, 3.5
 T_camara = -20.0
 T_exterior = 30.0
-Tiempo_OP = 16.0
-esp_pared_mm= 100
-esp_techo_mm= 100
-esp_piso_mm= 80
+Tiempo_OP = 16.0  # Tiempo de operación del equipo
 
+# Datos para Puertas (Infiltración)
+alto_puerta, ancho_puerta = 5.0, 5.0
+tiempo_abierta_min = 20.0  # Tiempo total de apertura al día en minutos
+n_puertas = 2
 
-# Parametros Modulo 2: Infiltracion Termica
-tipo_uso_infiltracion = 'trabajo_pesado'
-tipo_metodo_infiltracion = 'volumen'
+# Datos para Transmisión
+esp_pared, esp_techo, esp_piso = 100, 100, 80
 
-tiempo_abierto_min = 20
-alto_puerta_m = 5
-ancho_puerta_m = 5
-cant_puertas = 2
+# Datos para Infiltración
+tipo_uso_infil = 'trabajo_pesado'
 
+# Datos para Producto (Desde BD)
+nombre_producto = "Papa"
+rotacion_kg = 18144
+T_entrada_prod = -13.0
+T_salida_prod = -18.0
+factor_carga_prod = 1.1
+almacen_ton = 2.4
+respiracion_activa = True
 
-# Prueba Modulo 1: Calculo de carga termica por transmision
+# Datos para Suplementarias
+n_personas = 2
+horas_personas = 16.0
+luxes_requeridos = 250
+horas_luces = 24.0
+w_por_lampara = 50.0
 
-calc_trans = CalculadoraTransmisionTermica(
-    largo_m=L,
-    ancho_m=A,
-    alto_m=H,
-    temp_camara_c=T_camara,
-    temp_exterior_c=T_exterior
+print("="*60)
+print(f"SIMULACIÓN INTEGRAL DE CARGA TÉRMICA: CUARTO DE {nombre_producto.upper()}")
+print("="*60)
+
+# ==================================================
+# 2. EJECUCIÓN DE MÓDULOS (CASCADA)
+# ==================================================
+
+# --- MODULO 1: TRANSMISIÓN ---
+calc_trans = CalculadoraTransmisionTermica(L, A, H, T_camara, T_exterior)
+res_trans = calc_trans.calcular_carga_total(esp_pared, esp_techo, esp_piso, Tiempo_OP)
+total_trans = res_trans['TOTAL']
+
+# --- MODULO 2: INFILTRACIÓN ---
+calc_infil = CalculadoraInfiltracionTermica(L, A, H, T_camara, T_exterior)
+# Cálculo 1: Por Volumen
+res_infil_vol = calc_infil.calcular_carga_por_volumen(Tiempo_OP, tipo_uso_infil)
+# Cálculo 2: Por Puertas
+res_infil_puertas = calc_infil.calcular_carga_por_puertas(alto_puerta, ancho_puerta, tiempo_abierta_min, n_puertas, Tiempo_OP)
+
+print("DICCIONARIO INFILTRACION (VOL):", res_infil_vol)
+print("DICCIONARIO INFILTRACION (PUERTAS):", res_infil_puertas)
+
+# Elegimos el mayor o el que el usuario prefiera (usaremos volumen para el total general por ahora)
+total_infil = res_infil_vol['TOTAL_INFILTRACION']
+total_infil_puertas = res_infil_puertas['TOTAL_INFILTRACION']
+
+# --- MODULO 3: PRODUCTO (Conexión SQLite) ---
+db = CatalogoProductosDB()
+datos_p = db.buscar_producto(nombre_producto)
+calc_prod = CalculadoraProducto(
+    nombre=datos_p['nombre'], rotacion_kg=rotacion_kg, 
+    temp_entrada_c=T_entrada_prod, temp_salida_c=T_salida_prod,
+    almacenamiento_ton=almacen_ton, factor_carga=factor_carga_prod,
+    aplica_respiracion=respiracion_activa,
+    temp_congelacion_f=datos_p['temp_congelacion_f'],
+    cp_arriba_cong=datos_p['cp_arriba'],
+    cp_debajo_cong=datos_p['cp_debajo'],
+    calor_latente=datos_p['calor_latente'],
+    resp_0=datos_p['resp_0'], resp_5=datos_p['resp_5'],
+    resp_10=datos_p['resp_10'], resp_15=datos_p['resp_15'], resp_20=datos_p['resp_20']
 )
+res_prod = calc_prod.calcular_carga_producto()
+total_prod = res_prod['TOTAL_PRODUCTO']
 
-resultados_trans = calc_trans.calcular_carga_total(
-    espesor_pared_mm=esp_pared_mm,
-    espesor_techo_mm=esp_techo_mm,
-    espesor_piso_mm=esp_piso_mm,
-    tiempo_control=Tiempo_OP
-)
+# --- MODULO 4: SUPLEMENTARIAS ---
+# Personas
+calc_pers = CalculadoraCargaPersonas(T_camara, n_personas, horas_personas)
+res_pers = calc_pers.calcular_carga()
+# Iluminación (Usa L, A y H de los parámetros maestros)
+calc_luces = CalculadoraIluminacion(L, A, H, luxes_requeridos, horas_luces, w_por_lampara)
+res_luces = calc_luces.calcular_carga()
 
-for superficie, carga in resultados_trans.items():
-    print(f"{superficie.capitalize()}: {carga} BTU/dia")
+total_suple = res_pers['TOTAL_SUPLEMENTARIA'] + res_luces['TOTAL_SUPLEMENTARIA']
 
+# ==================================================
+# 3. REPORTE FINAL Y BALANCE TÉRMICO
+# ==================================================
+total_general_vol = total_trans + total_infil + total_prod + total_suple
+total_general_pue = total_trans + total_infil_puertas + total_prod + total_suple
 
-# Prueba Modulo 2: Calculo de carga termica por infiltracion
-print("\n" + "="*50)
-print("PRUEBA MODULO 2: CARGA TERMICA POR INFILTRACION")
-print("="*50)
+total_btu_h_vol = total_general_vol / Tiempo_OP
+total_btu_h_pue = total_general_pue / Tiempo_OP
 
-calc_infil = CalculadoraInfiltracionTermica(
-    largo_m=L,
-    ancho_m=A,
-    alto_m=H,
-    temp_camara_c=T_camara,
-    temp_exterior_c=T_exterior
-)
+total_suple_pers = res_pers['TOTAL_SUPLEMENTARIA']
+total_suple_luces = res_luces['TOTAL_SUPLEMENTARIA']
 
-# 1. Extraccion de factores y valores internos
-volumen_m3 = calc_infil.obtener_volumen_cuarto('m3')
-volumen_ft3 = calc_infil.obtener_volumen_cuarto('ft3')
-factor_base = calc_infil.obtener_factor_infiltracion_base()
-renovaciones = calc_infil.obtener_renovaciones_diarias(tipo_uso=tipo_uso_infiltracion)
-
-print("\n--- 1. FACTORES Y VALORES INTERNOS ---")
-print(f"Volumen de la camara (m3): {volumen_m3}")
-print(f"Volumen de la camara (ft3): {volumen_ft3}")
-print(f"Factor de Infiltracion Base (segun Temp ext {T_exterior} C y Temp int {T_camara} C): {factor_base}")
-print(f"Renovaciones de Aire Diarias (Uso '{tipo_uso_infiltracion}'): {renovaciones}")
-
-
-# 2. Calculo de carga por metodo de VOLUMEN
-print("\n--- 2. METODO POR RENOVACIONES VOLUMETRICAS ---")
-resultados_volumen = calc_infil.calcular_carga_por_volumen(
-    tiempo_control=Tiempo_OP,
-    tipo_uso=tipo_uso_infiltracion
-)
-
-for clave, valor in resultados_volumen.items():
-    print(f"{clave.capitalize()}: {valor}")
-
-
-# 3. Calculo de carga por metodo de PUERTAS (Apertura directa)
-print("\n--- 3. METODO POR APERTURA DE PUERTAS ---")
-
-resultados_puertas = calc_infil.calcular_carga_por_puertas(
-    alto_puerta_m=alto_puerta_m,
-    ancho_puerta_m=ancho_puerta_m,
-    tiempo_abierta_min=tiempo_abierto_min,
-    cant_puertas=cant_puertas,
-    tiempo_control=Tiempo_OP
-)
-
-for clave, valor in resultados_puertas.items():
-    print(f"{clave.capitalize()}: {valor}")
-
-print("\n" + "="*50)
+print(f"\n1. TRANSMISIÓN:        {total_trans:15,.0f} BTU/Día")
+print(f"2. INFILTRACIÓN (VOL): {total_infil:15,.0f} BTU/Día")
+print(f"   INFILTRACIÓN (PUE): {total_infil_puertas:15,.0f} BTU/Día")
+print(f"3. PRODUCTO:           {total_prod:15,.0f} BTU/Día")
+print(f"4. SUPLEMENTARIAS:     {total_suple:15,.0f} BTU/Día")
+print(f"   - Personas:         {total_suple_pers:15,.0f} BTU/Día")
+print(f"   - Iluminación:      {total_suple_luces:15,.0f} BTU/Día")
+print(f"     * Lámparas a instalar: {res_luces['lamparas_sugeridas']} ud(s) de {w_por_lampara}W")
+print(f"     * Watts totales int.:  {res_luces['watts_reales']} W")
+print("-" * 50)
+print(f"RESUMEN USANDO INFILTRACIÓN POR VOLUMEN:")
+print(f"CARGA TOTAL DIARIA:    {total_general_vol:15,.0f} BTU/Día")
+print(f"CARGA TÉRMICA (Q):     {total_btu_h_vol:15,.0f} BTU/h")
+print(f"CAPACIDAD SUGERIDA:    {total_btu_h_vol / 12000:15.2f} Ton. Ref.")
+print("-" * 50)
+print(f"RESUMEN USANDO INFILTRACIÓN POR PUERTAS:")
+print(f"CARGA TOTAL DIARIA:    {total_general_pue:15,.0f} BTU/Día")
+print(f"CARGA TÉRMICA (Q):     {total_btu_h_pue:15,.0f} BTU/h")
+print(f"CAPACIDAD SUGERIDA:    {total_btu_h_pue / 12000:15.2f} Ton. Ref.")
+print("="*60)

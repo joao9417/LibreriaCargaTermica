@@ -18,6 +18,7 @@ Este motor de cálculo está diseñado basándose en prácticas empíricas valid
 
 ### 💨 Módulo 2: Infiltración de Aire
 * Cálculo de carga térmica sensible y latente aportada por la entrada de aire exterior.
+* Cálculo dual: por método de renovaciones volumétricas o por método convectivo de apertura de puertas (considerando dimensiones, velocidad del aire y tiempo).
 * Matriz tabulada y automatizada para buscar factores de aire (BTU/ft³) cruzando temperaturas internas y externas.
 * Cálculo dinámico de renovaciones de aire diarias según el volumen volumétrico del cuarto.
 * Soporte para factores de uso empíricos de puertas (`normal`, `trabajo_pesado`, `almacenaje_prolongado`, `dos_puertas`).
@@ -27,11 +28,18 @@ Este motor de cálculo está diseñado basándose en prácticas empíricas valid
 * Determinación automática de etapas termodinámicas según las temperaturas de entrada, salida y punto de congelación.
 * Soporte para calor de respiración en productos que lo requieran (frutas, verduras).
 
-### 🗄️ Módulo 4: Catálogo y Base de Datos (Nuevo)
+### 🗄️ Módulo 4: Catálogo y Base de Datos
 * Gestión automatizada de propiedades termodinámicas mediante SQLite.
 * Carga masiva de productos desde archivos CSV (`productos.csv`).
 * Métodos de búsqueda optimizados para integrar con el motor de cálculo.
 * Arquitectura preparada para migración directa a frameworks como Django.
+
+### 💡 Módulo 5: Cargas Suplementarias (Nuevo)
+* **Personas:** Cálculo de carga térmica disipada por trabajadores dentro del cuarto frío según la temperatura interior y horas de trabajo.
+* **Iluminación:** Cálculo avanzado de carga por luces, incluyendo:
+  * Determinación dinámica del Coeficiente de Utilización (CU) basado en la geometría del cuarto (RCR).
+  * Cálculo exacto del número de lámparas requeridas y sus Watts totales reales.
+  * Consideración de pérdidas de luz (LLF) y eficacia luminosa (LED).
 
 ## Instalación
 
