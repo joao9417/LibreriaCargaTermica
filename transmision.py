@@ -3,7 +3,7 @@ class CalculadoraTransmisionTermica:
     Modulo 1: Calculo de carga termica por transmision a traves de la envolvente del camara frigorifica, considerando paredes, techo y piso.
     Basado en estandares industriales y coeficientes empiricos.
     """
-    
+
     # --- CONSTANTES DE DISEÑO ---
     # Factores K (Coeficiente Global de Transferencia de Calor) según espesor en mm
     # Valores típicos para paneles de poliuretano inyectado (BTU/h·ft²·°F)
@@ -15,7 +15,6 @@ class CalculadoraTransmisionTermica:
     # Conversión de unidades
     M2_A_FT2 = 10.7639
     
-    
     def __init__(self, largo_m: float, ancho_m: float, alto_m: float, temp_camara_c: float, temp_exterior_c: float):
         # Dimensiones de entrada en metros
         self.largo_m = largo_m
@@ -26,8 +25,6 @@ class CalculadoraTransmisionTermica:
         self.temp_camara_c = temp_camara_c
         self.temp_exterior_c = temp_exterior_c
         
-        
-    
     def obtener_areas(self, unidad: str = "ft2") -> dict:
         """
         Calcula las areas de los paneles considerando el factor de seguridad estructural del 20% (0.2 m) para cada dimensión.
@@ -52,8 +49,6 @@ class CalculadoraTransmisionTermica:
         else:
             raise ValueError("Unidad no soportada. Use 'm2' para metros cuadrados o 'ft2' para pies cuadrados.")
         
-    
-    
     def obtener_deltas_temperatura(self, unidad: str = 'F') -> dict:
         """
         Calcular el diferencial de temperatura considerando asoleamiento y temperatura del suelo según la temperatura exterior.
@@ -94,7 +89,6 @@ class CalculadoraTransmisionTermica:
         else:
             raise ValueError("Unidad no soportada. Use 'C' para Celsius, 'F' para Fahrenheit o 'K' para Kelvin.")
         
-
     def obtener_k_factores(self, espesor_pared_mm: int, espesor_techo_mm: int, espesor_piso_mm: int, tiempo_control: float = 24.0) -> dict:
         """
         Retorna los Factores K de diseño ajustados por el tiempo de operacion del equipo.
@@ -118,8 +112,7 @@ class CalculadoraTransmisionTermica:
             'pared_sur': self.FACTORES_K_PARED_TECHO[espesor_pared_mm] * ajuste_tiempo,
             'pared_oeste': self.FACTORES_K_PARED_TECHO[espesor_pared_mm] * ajuste_tiempo
         }
-        
-    
+            
     def calcular_carga_total(self, espesor_pared_mm: int, espesor_techo_mm: int, espesor_piso_mm: int, tiempo_control: float = 24.0) -> dict:
         """
         Ejecuta el calculo maestro de la carga termica por transmision en BTU/dia
