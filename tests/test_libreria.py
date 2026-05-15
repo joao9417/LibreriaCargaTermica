@@ -6,8 +6,14 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from transmision import CalculadoraTransmisionTermica
-from infiltracion import CalculadoraInfiltracion
+from infiltracion import CalculadoraInfiltracionTermica
 from producto import CalculadoraProducto
+from suplementarias import (
+    CalculadoraCargaPersonas,
+    CalculadoraIluminacion,
+    CalculadoraEnvases,
+    CalculadoraCargasInternas
+)
 
 class TestTransmision(unittest.TestCase):
     def setUp(self):
@@ -44,7 +50,7 @@ class TestTransmision(unittest.TestCase):
 
 class TestInfiltracion(unittest.TestCase):
     def setUp(self):
-        self.calc = CalculadoraInfiltracion(
+        self.calc = CalculadoraInfiltracionTermica(
             largo_m=10.0, ancho_m=8.0, alto_m=3.5, 
             temp_camara_c=-20.0, temp_exterior_c=35.0
         )
@@ -71,7 +77,7 @@ class TestProducto(unittest.TestCase):
             rotacion_kg=18144, 
             temp_entrada_c=-13.0, 
             temp_salida_c=-18.0, 
-            temp_congelacion_c=-0.6,
+            temp_congelacion_f=30.92,
             cp_arriba_cong=0.88,
             cp_debajo_cong=0.5,
             calor_latente=113.0,
@@ -99,6 +105,65 @@ class TestProducto(unittest.TestCase):
         resultados = self.calc_producto.calcular_carga_producto()
         self.assertIn('TOTAL_PRODUCTO', resultados)
         self.assertTrue(resultados['TOTAL_PRODUCTO'] > 0)
+
+
+class TestPersonas(unittest.TestCase):
+    def test_carga_personas(self):
+        """Verifica el cálculo correcto de la disipación térmica por operarios."""
+        calc = CalculadoraCargaPersonas(temp_camara_c=-20.0, cantidad_personas=2, tiempo_horas=18.0)
+        res = calc.calcular_carga()
+        self.assertIn('TOTAL_SUPLEMENTARIA', res)
+        self.assertTrue(res['TOTAL_SUPLEMENTARIA'] > 0)
+
+class TestIluminacion(unittest.TestCase):
+    def test_carga_iluminacion(self):
+        """Verifica que el sistema de iluminación calcule lámparas y calor correctamente."""
+        calc = CalculadoraIluminacion(
+            largo_m=10.0, ancho_m=8.0, alto_m=3.5, 
+            luxes_deseados=400, horas_uso=24.0, 
+            potencia_lampara_w=120.0, eficiencia_lampara_lm_w=140.0
+        )
+        res = calc.calcular_carga()
+        self.assertIn('TOTAL_SUPLEMENTARIA', res)
+        self.assertTrue(res['lamparas_sugeridas'] > 0)
+        self.assertTrue(res['watts_reales'] >= res['watts_teoricos'])
+
+class TestEnvases(unittest.TestCase):
+    def test_carga_envases(self):
+        """Verifica el cálculo de enfriamiento de los envases (canastas)."""
+        calc = CalculadoraEnvases(rotacion_kg=15000, temp_entrada_c=6.0, temp_salida_c=2.0, tamano_canasta_cm=25)
+        res = calc.calcular_carga()
+        self.assertIn('TOTAL_SUPLEMENTARIA', res)
+        self.assertTrue(res['unidades_estimadas'] > 0)
+        self.assertTrue(res['TOTAL_SUPLEMENTARIA'] > 0)
+
+class TestCargasInternas(unittest.TestCase):
+    def test_cargas_internas_gas_caliente(self):
+        """Verifica motores, equipos adicionales y lógica de gas caliente (0 watts resistencias)."""
+        calc = CalculadoraCargasInternas(
+            temp_camara_c=-20.0, volumen_m3=280.0, cambios_aire_hora=20.0, 
+            horas_operacion_equipo=20.0, hp_adicionales=10.0, watts_adicionales=5000.0,
+            cantidad_cargas_hp=1, horas_operacion_hp=8.0,
+            cantidad_cargas_watts=1, horas_operacion_watts=8.0,
+            tipo_evaporador='industrial_pesado', tipo_deshielo='gas_caliente'
+        )
+        res = calc.calcular_carga(subtotal_carga_previa_dia=1000000.0)
+        self.assertIn('TOTAL_SUPLEMENTARIA', res)
+        # Con gas caliente, la potencia eléctrica instalada en deshielo debe ser 0
+        self.assertEqual(res['potencia_estimada_resistencias_W'], 0)
+        self.assertTrue(res['btu_dia_ventiladores'] > 0)
+        self.assertTrue(res['btu_dia_equipos_extra'] > 0)
+
+    def test_cargas_internas_electrico(self):
+        """Verifica que con deshielo eléctrico haya resistencias detectadas."""
+        calc = CalculadoraCargasInternas(
+            temp_camara_c=-20.0, volumen_m3=280.0, cambios_aire_hora=20.0, 
+            horas_operacion_equipo=20.0,
+            tipo_deshielo='electrico'
+        )
+        res = calc.calcular_carga(subtotal_carga_previa_dia=1000000.0)
+        # Con deshielo eléctrico, la potencia instalada de resistencias debe ser mayor a 0
+        self.assertTrue(res['potencia_estimada_resistencias_W'] > 0)
 
 
 if __name__ == '__main__':

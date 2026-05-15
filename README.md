@@ -8,7 +8,7 @@ Librería de Python orientada al cálculo automatizado y preciso de la carga té
 
 Este motor de cálculo está diseñado basándose en prácticas empíricas validadas por la industria de la refrigeración y estrictos lineamientos termodinámicos. Su arquitectura limpia y desacoplada la hace ideal para integrarse como lógica de negocio en aplicaciones web (Django, Flask), APIs REST o herramientas de escritorio.
 
-## Características Actuales (v0.2)
+## Características Actuales (v1.0)
 
 ### 🧱 Módulo 1: Transmisión (Paredes, Techo, Piso)
 * Cálculo automatizado de áreas considerando factores de seguridad estructural (+0.2m).
@@ -34,18 +34,21 @@ Este motor de cálculo está diseñado basándose en prácticas empíricas valid
 * Métodos de búsqueda optimizados para integrar con el motor de cálculo.
 * Arquitectura preparada para migración directa a frameworks como Django.
 
-### 💡 Módulo 5: Cargas Suplementarias (Nuevo)
+### 💡 Módulo 5: Cargas Suplementarias e Internas (Nuevo)
 * **Personas:** Cálculo de carga térmica disipada por trabajadores dentro del cuarto frío según la temperatura interior y horas de trabajo.
 * **Iluminación:** Cálculo avanzado de carga por luces, incluyendo:
   * Determinación dinámica del Coeficiente de Utilización (CU) basado en la geometría del cuarto (RCR).
   * Cálculo exacto del número de lámparas requeridas y sus Watts totales reales.
   * Consideración de pérdidas de luz (LLF) y eficacia luminosa (LED).
+* **Envases y Canastas:** Cálculo de enfriamiento de envases plásticos considerando la masa de plástico ingresado y el diferencial de temperatura.
+* **Cargas Internas:**
+  * **Ventiladores y Evaporadores:** Selección de factor volumétrico ajustado según el tipo (`industrial_pesado` vs estándar).
+  * **Deshielo:** Cálculo de aporte de calor a la cámara según si es `gas_caliente` (0 watts resistivos) o `electrico` (resistencias eléctricas), incluyendo el factor de calor perdido.
+  * **Equipos Adicionales:** Parámetros configurables para incluir motores extras, resistencias de puertas u otra maquinaria, expresados en HP o Watts, multiplicados por la cantidad de equipos y las horas de uso.
 
 ## Instalación
 
-Al ser una librería de dominio independiente que utiliza únicamente librerías estándar de Python, no requiere instalación forzosa mediante `pip`. Simplemente clona este repositorio o copia la carpeta `LibreriaCargaTermica` dentro de la estructura principal de tu proyecto. 
-
-*Nota: Se incluye un archivo `requirements.txt` y se puede crear un entorno virtual para mantener las buenas prácticas, aunque actualmente no existen dependencias de terceros.*
+Al ser una librería de dominio independiente que utiliza únicamente librerías estándar de Python, no requiere instalación mediante `pip` ni archivos de dependencias externos. Simplemente clona este repositorio o copia la carpeta `LibreriaCargaTermica` dentro de la estructura principal de tu proyecto.
 
 ## Gestión de la Base de Datos
 
